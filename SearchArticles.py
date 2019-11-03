@@ -13,12 +13,10 @@ import webbrowser
 import urllib.request
 from bs4 import BeautifulSoup as bs
 
-search_term = input("Search Terms: ")
-limit = input ("Number of articles to parse: ")
 
-
+search_term = input("Search Term: ") #'Computational design of self-assembling register-specific collagen heterotrimers'
+query_limit = int(input("Articles to parse: "))
 search_query = scholarly.search_pubs_query(search_term)
-print(type(search_query))
 successes = []
 
 def main(text):
@@ -29,7 +27,7 @@ def main(text):
         if len(s) == 4:
             if any(char.isdigit() for char in s) and any(char.isalpha() for char in s) and s not in ids :
                 ids.append(s)
-                #print(s)
+                print(s)
                 pdb_url(s)
 
 def pdb_url (pdb):
@@ -63,14 +61,10 @@ for entry in search_query:
         for p in paragraphs: 
             p = p.text
             main(p)
-        #main(str))
-        
-     
-        
     except:
         pass
     i += 1
-    if i > limit:
+    if i > query_limit:
         break
         
 
